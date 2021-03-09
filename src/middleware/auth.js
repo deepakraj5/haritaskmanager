@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
 
         const verifyToken = jwt.verify(token, 'dfhdvixdjfvgyg')
 
-        const user = await User.findOne({ _id: verifyToken._id })
+        const user = await User.findOne({ _id: verifyToken._id, jwt: token }, { jwt: 0, password: 0 })
 
         if (!user) throw new Error()
 

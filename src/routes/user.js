@@ -45,4 +45,10 @@ route.get('/authtest', auth, async (req, res) => {
     res.send('ok')
 })
 
+route.get('/profile', auth, async (req, res) => {
+    const user = req.user
+
+    res.send(user)
+})
+
 module.exports = route
