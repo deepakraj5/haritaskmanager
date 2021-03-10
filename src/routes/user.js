@@ -51,4 +51,42 @@ route.get('/profile', auth, async (req, res) => {
     res.send(user)
 })
 
+route.get('/logout', auth, async (req, res) => {
+    try {
+        
+        const token = req.token
+        const user = req.user
+
+        await User.updateOne({ _id: user._id }, {
+            $pull: {
+                jwt: token
+            }
+        })
+
+        res.send('logged out')
+
+    } catch (error) {
+        res.status(400).send({ error: 'something went wrong' })
+    }
+})
+
+
+route.get('/logout/all', auth, async (req, res) => {
+    try {
+        
+        const user = req.user
+
+        await User.updateOne({ _id: user._id }, {
+            $set: {
+                jwt: []
+            }
+        })
+
+        res.send('logged out')
+
+    } catch (error) {
+        res.status(400).send({ error: 'something went wrong' })
+    }
+})
+
 module.exports = route
