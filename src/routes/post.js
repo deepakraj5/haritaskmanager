@@ -32,6 +32,8 @@ route.get('/post/view', auth, async (req, res) => {
     }
 })
 
+// update route
+// delete route
 
 
 module.exports = route
